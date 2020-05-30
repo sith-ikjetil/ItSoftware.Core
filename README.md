@@ -1,0 +1,1 @@
+# ItSoftware.Core
