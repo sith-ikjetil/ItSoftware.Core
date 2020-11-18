@@ -38,6 +38,7 @@ namespace ItSoftware.Core.TestApplication
 				Console.WriteLine(s);
 			}
 			Console.ReadKey();
+			Console.WriteLine();
 
 			//ItsLog log = new ItsLog( "D:\\ConductorTestSettings.xml", "TEST", true );
 			//log.LogInformation( "Title", "Text" );
@@ -66,20 +67,21 @@ namespace ItSoftware.Core.TestApplication
 			Console.WriteLine( "Hashed SHA384: " + "kjetil".ItsHashSHA384( Encoding.ASCII ) );
 			Console.WriteLine( "Hashed SHA512: " + "kjetil".ItsHashSHA512( Encoding.ASCII ) );
 			Console.ReadKey( );
+			Console.WriteLine();
 
 			Console.WriteLine();
 			Console.WriteLine(int.MaxValue.ItsToDataSizeString(2, new System.Globalization.CultureInfo("en-US")));
-			Console.WriteLine(uint.MaxValue.ItsToDataSizeString(3, new System.Globalization.CultureInfo("en-US")));
-			Console.WriteLine(long.MaxValue.ItsToDataSizeString(1, new System.Globalization.CultureInfo("en-US")));
+			Console.WriteLine(uint.MaxValue.ItsToDataSizeString(2, new System.Globalization.CultureInfo("en-US")));
+			Console.WriteLine(long.MaxValue.ItsToDataSizeString(2, new System.Globalization.CultureInfo("en-US")));
 			Console.WriteLine(ulong.MaxValue.ItsToDataSizeString(2, new System.Globalization.CultureInfo("en-US")));
-			Console.WriteLine(decimal.MaxValue.ItsToDataSizeString(3, new System.Globalization.CultureInfo("en-US")));			
+			Console.WriteLine(decimal.MaxValue.ItsToDataSizeString(2, new System.Globalization.CultureInfo("en-US")));			
 			Console.ReadKey();
 
 			Console.WriteLine();
 			string target = "Kjetil";
-			Console.WriteLine(target.ItsWidthExpand(20, '_', ItsWidthExpandDirection.Left));
-			Console.WriteLine(target.ItsWidthExpand(20, '_', ItsWidthExpandDirection.Middle));
-			Console.WriteLine(target.ItsWidthExpand(20, '_', ItsWidthExpandDirection.Right));
+			Console.WriteLine(target.ItsWidthExpand(30, '_', ItsWidthExpandDirection.Left));
+			Console.WriteLine(target.ItsWidthExpand(30, '_', ItsWidthExpandDirection.Middle));
+			Console.WriteLine(target.ItsWidthExpand(30, '_', ItsWidthExpandDirection.Right));
 			Console.ReadKey();
 
 			Console.WriteLine();
