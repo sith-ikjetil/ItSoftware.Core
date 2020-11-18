@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ItSoftware.Core.ItSoftware.Core.ID
+namespace ItSoftware.Core.ID
 {
 	public enum ItsCreateIDOptions
 	{

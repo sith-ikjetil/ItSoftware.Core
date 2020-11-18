@@ -10,7 +10,7 @@ using System.Data.SqlClient;
 //using ItSoftware.Core.HttpHost;
 //using ItSoftware.Core.Log;
 using System.Text.RegularExpressions;
-using ItSoftware.Core.ItSoftware.Core.ID;
+using ItSoftware.Core.ID;
 
 namespace ItSoftware.Core.TestApplication
 {	
