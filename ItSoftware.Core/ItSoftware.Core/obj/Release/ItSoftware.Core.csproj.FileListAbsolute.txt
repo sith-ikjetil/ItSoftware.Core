@@ -1,0 +1,57 @@
+D:\Projects\Visual Studio Online\ItSoftware.Core\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\ItSoftware.Core.dll
+D:\Projects\Visual Studio Online\ItSoftware.Core\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\ItSoftware.Core.pdb
+D:\Projects\Visual Studio Online\ItSoftware.Core\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\ICSharpCode.SharpZipLib.dll
+D:\Projects\Visual Studio Online\ItSoftware.Core\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\Microsoft.Owin.Diagnostics.dll
+D:\Projects\Visual Studio Online\ItSoftware.Core\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\Microsoft.Owin.dll
+D:\Projects\Visual Studio Online\ItSoftware.Core\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\Microsoft.Owin.Host.HttpListener.dll
+D:\Projects\Visual Studio Online\ItSoftware.Core\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\Microsoft.Owin.Hosting.dll
+D:\Projects\Visual Studio Online\ItSoftware.Core\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\Owin.dll
+D:\Projects\Visual Studio Online\ItSoftware.Core\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\Microsoft.Owin.xml
+D:\Projects\Visual Studio Online\ItSoftware.Core\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\Microsoft.Owin.Diagnostics.xml
+D:\Projects\Visual Studio Online\ItSoftware.Core\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\Microsoft.Owin.Host.HttpListener.xml
+D:\Projects\Visual Studio Online\ItSoftware.Core\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\Microsoft.Owin.Hosting.xml
+D:\Projects\Visual Studio Online\ItSoftware.Core\ItSoftware.Core.2017\ItSoftware.Core\obj\Release\ItSoftware.Core.csproj.CoreCompileInputs.cache
+D:\Projects\Visual Studio Online\ItSoftware.Core\ItSoftware.Core.2017\ItSoftware.Core\obj\Release\ItSoftware.Core.csproj.CopyComplete
+D:\Projects\Visual Studio Online\ItSoftware.Core\ItSoftware.Core.2017\ItSoftware.Core\obj\Release\ItSoftware.Core.dll
+D:\Projects\Visual Studio Online\ItSoftware.Core\ItSoftware.Core.2017\ItSoftware.Core\obj\Release\ItSoftware.Core.pdb
+D:\Projects\Visual Studio Online\ItSoftware.Core\ItSoftware.Core.2017\ItSoftware.Core\obj\Release\ItSoftware.Core.csprojAssemblyReference.cache
+D:\Projects\GitHub\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\ItSoftware.Core.dll
+D:\Projects\GitHub\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\ItSoftware.Core.pdb
+D:\Projects\GitHub\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\ICSharpCode.SharpZipLib.dll
+D:\Projects\GitHub\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\Microsoft.Owin.Diagnostics.dll
+D:\Projects\GitHub\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\Microsoft.Owin.dll
+D:\Projects\GitHub\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\Microsoft.Owin.Host.HttpListener.dll
+D:\Projects\GitHub\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\Microsoft.Owin.Hosting.dll
+D:\Projects\GitHub\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\Owin.dll
+D:\Projects\GitHub\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\Microsoft.Owin.xml
+D:\Projects\GitHub\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\Microsoft.Owin.Diagnostics.xml
+D:\Projects\GitHub\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\Microsoft.Owin.Host.HttpListener.xml
+D:\Projects\GitHub\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\Microsoft.Owin.Hosting.xml
+D:\Projects\GitHub\ItSoftware.Core.2017\ItSoftware.Core\obj\Release\ItSoftware.Core.csproj.CoreCompileInputs.cache
+D:\Projects\GitHub\ItSoftware.Core.2017\ItSoftware.Core\obj\Release\ItSoftware.Core.csproj.CopyComplete
+D:\Projects\GitHub\ItSoftware.Core.2017\ItSoftware.Core\obj\Release\ItSoftware.Core.dll
+D:\Projects\GitHub\ItSoftware.Core.2017\ItSoftware.Core\obj\Release\ItSoftware.Core.pdb
+G:\GitHub\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\ItSoftware.Core.dll
+G:\GitHub\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\ItSoftware.Core.pdb
+G:\GitHub\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\ICSharpCode.SharpZipLib.dll
+G:\GitHub\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\Microsoft.Owin.Diagnostics.dll
+G:\GitHub\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\Microsoft.Owin.dll
+G:\GitHub\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\Microsoft.Owin.Host.HttpListener.dll
+G:\GitHub\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\Microsoft.Owin.Hosting.dll
+G:\GitHub\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\Owin.dll
+G:\GitHub\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\Microsoft.Owin.xml
+G:\GitHub\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\Microsoft.Owin.Diagnostics.xml
+G:\GitHub\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\Microsoft.Owin.Host.HttpListener.xml
+G:\GitHub\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\Microsoft.Owin.Hosting.xml
+G:\GitHub\ItSoftware.Core.2017\ItSoftware.Core\obj\Release\ItSoftware.Core.csproj.CoreCompileInputs.cache
+G:\GitHub\ItSoftware.Core.2017\ItSoftware.Core\obj\Release\ItSoftware.Core.csproj.CopyComplete
+G:\GitHub\ItSoftware.Core.2017\ItSoftware.Core\obj\Release\ItSoftware.Core.dll
+G:\GitHub\ItSoftware.Core.2017\ItSoftware.Core\obj\Release\ItSoftware.Core.pdb
+G:\GitHub\ItSoftware.Core.2017\ItSoftware.Core\obj\Release\ItSoftware.Core.csprojAssemblyReference.cache
+D:\GitHub\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\ItSoftware.Core.dll
+D:\GitHub\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\ItSoftware.Core.pdb
+D:\GitHub\ItSoftware.Core.2017\ItSoftware.Core\bin\Release\ICSharpCode.SharpZipLib.dll
+D:\GitHub\ItSoftware.Core.2017\ItSoftware.Core\obj\Release\ItSoftware.Core.csproj.CoreCompileInputs.cache
+D:\GitHub\ItSoftware.Core.2017\ItSoftware.Core\obj\Release\ItSoftware.Core.csproj.CopyComplete
+D:\GitHub\ItSoftware.Core.2017\ItSoftware.Core\obj\Release\ItSoftware.Core.dll
+D:\GitHub\ItSoftware.Core.2017\ItSoftware.Core\obj\Release\ItSoftware.Core.pdb
