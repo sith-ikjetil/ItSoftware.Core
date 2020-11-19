@@ -23,6 +23,11 @@ namespace ItSoftware.Core.Log
 		public string EventLogSourceName { get; private set; }
 		public bool ReportToEventLog { get; set; } = true;
 		public bool AutoSave { get; set; } = true;
+		public bool DoLogInformation { get; set; } = true;
+		public bool DoLogWarning { get; set; } = true;
+		public bool DoLogError { get; set; } = true;
+		public bool DoLogDebug { get; set; } = true;
+		public bool DoLogOther { get; set; } = true;
 		#endregion
 
 		#region Constructors
@@ -115,6 +120,11 @@ namespace ItSoftware.Core.Log
 		/// <param name="text"></param>
 		public void LogInformation( string title, string text )
 		{
+			if ( !this.DoLogInformation )
+            {
+				return;
+            }
+
 			if ( this.ReportToEventLog )
 			{
 				EventLog.WriteEntry( this.EventLogSourceName, $"{title}{Environment.NewLine}{text}", EventLogEntryType.Information );
@@ -133,6 +143,11 @@ namespace ItSoftware.Core.Log
 		/// <param name="text"></param>
 		public void LogWarning( string title, string text )
 		{
+			if (!this.DoLogWarning)
+            {
+				return;
+            }
+
 			if ( this.ReportToEventLog )
 			{ 
 				EventLog.WriteEntry( this.EventLogSourceName, $"{title}{Environment.NewLine}{text}", EventLogEntryType.Warning );
@@ -151,6 +166,11 @@ namespace ItSoftware.Core.Log
 		/// <param name="text"></param>
 		public void LogError( string title, string text )
 		{
+			if (!this.DoLogError)
+            {
+				return;
+            }
+
 			if ( this.ReportToEventLog )
 			{
 				EventLog.WriteEntry( this.EventLogSourceName, $"{title}{Environment.NewLine}{text}", EventLogEntryType.Error );
@@ -169,6 +189,11 @@ namespace ItSoftware.Core.Log
 		/// <param name="text"></param>
 		public void LogDebug( string title, string text )
 		{
+			if (!this.DoLogDebug)
+            {
+				return;
+            }
+
 			this.Entries.Add( new ItsLogEntry( ) { Text = text, Type = ItsLogType.Debug, When = DateTime.Now, Title = title } );
 
 			if ( this.AutoSave )
@@ -182,6 +207,11 @@ namespace ItSoftware.Core.Log
 		/// <param name="text"></param>
 		public void LogOther( string title, string text )
 		{
+			if (!this.DoLogOther)
+            {
+				return;
+            }
+
 			this.Entries.Add( new ItsLogEntry( ) { Text = text, Type = ItsLogType.Other, When = DateTime.Now, Title = title } );
 
 			if ( this.AutoSave )

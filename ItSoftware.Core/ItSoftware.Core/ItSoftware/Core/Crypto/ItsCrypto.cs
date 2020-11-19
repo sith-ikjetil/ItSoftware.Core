@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.IO;
 namespace ItSoftware.Core.Crypto
 {
-	public static class Crypto
+	public static class ItsCrypto
 	{		
 		private static string EncryptionSalt = "QjO(kdLJ";
 
@@ -19,7 +19,7 @@ namespace ItSoftware.Core.Crypto
 		public static byte[] Encrypt(string source, string key)
 		{
 			byte[] data = Encoding.UTF8.GetBytes(source);
-			return Crypto.Encrypt(data, key);
+			return ItsCrypto.Encrypt(data, key);
 
 		}
 		/// <summary>
@@ -38,7 +38,7 @@ namespace ItSoftware.Core.Crypto
 				//Generate a Key based on a Password and HMACSHA1 pseudo-random number generator
 				//Salt must be at least 8 bytes long
 				//Use an iteration count of at least 1000
-				Rfc2898DeriveBytes rfc2898 = new Rfc2898DeriveBytes(key, Encoding.UTF8.GetBytes(Crypto.EncryptionSalt), 1000);
+				Rfc2898DeriveBytes rfc2898 = new Rfc2898DeriveBytes(key, Encoding.UTF8.GetBytes(ItsCrypto.EncryptionSalt), 1000);
 
 				//Create AES algorithm
 				aes = new AesManaged();
@@ -78,7 +78,7 @@ namespace ItSoftware.Core.Crypto
 		/// <returns></returns>
 		public static string EncryptToBase64(string source, string key)
 		{
-			return Convert.ToBase64String(Crypto.Encrypt(source, key));
+			return Convert.ToBase64String(ItsCrypto.Encrypt(source, key));
 		}
 		/// <summary>
 		/// Encrypts a byte array to a base 64 encoded string.
@@ -87,7 +87,7 @@ namespace ItSoftware.Core.Crypto
 		/// <returns></returns>
 		public static string EncryptToBase64(byte[] source, string key)
 		{
-			return Convert.ToBase64String(Crypto.Encrypt(source, key));
+			return Convert.ToBase64String(ItsCrypto.Encrypt(source, key));
 		}
 		#endregion
 
@@ -100,7 +100,7 @@ namespace ItSoftware.Core.Crypto
 		public static byte[] DecryptFromBase64(string source, string key)
 		{
 			byte[] data = Convert.FromBase64String(source);
-			return Crypto.Decrypt(data, key);
+			return ItsCrypto.Decrypt(data, key);
 		}
 		/// <summary>
 		/// Decrypts a string encoded as base64 to a byte array converted to an utf8 string.
@@ -109,7 +109,7 @@ namespace ItSoftware.Core.Crypto
 		/// <returns></returns>
 		public static string DecryptFromBase64ToString(string source, string key)
 		{
-			byte[] data = Crypto.DecryptFromBase64(source, key);
+			byte[] data = ItsCrypto.DecryptFromBase64(source, key);
 			return Encoding.UTF8.GetString(data);
 		}
 		/// <summary>
@@ -127,7 +127,7 @@ namespace ItSoftware.Core.Crypto
 				//Generate a Key based on a Password and HMACSHA1 pseudo-random number generator
 				//Salt must be at least 8 bytes long
 				//Use an iteration count of at least 1000
-				Rfc2898DeriveBytes rfc2898 = new Rfc2898DeriveBytes(key, Encoding.UTF8.GetBytes(Crypto.EncryptionSalt), 1000);
+				Rfc2898DeriveBytes rfc2898 = new Rfc2898DeriveBytes(key, Encoding.UTF8.GetBytes(ItsCrypto.EncryptionSalt), 1000);
 
 				//Create AES algorithm
 				aes = new AesManaged();
