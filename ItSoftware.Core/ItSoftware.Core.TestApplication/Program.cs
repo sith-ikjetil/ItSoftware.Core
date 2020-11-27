@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 using ItSoftware.Core.ID;
 
 namespace ItSoftware.Core.TestApplication
-{	
+{
 	class Program
 	{
 		static void Main(string[] args)

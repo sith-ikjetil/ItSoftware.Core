@@ -39,4 +39,3 @@ D:\GitHub\ItSoftware.Core\ItSoftware.Core\ItSoftware.Core\obj\Debug\ItSoftware.C
 D:\GitHub\ItSoftware.Core\ItSoftware.Core\ItSoftware.Core\obj\Debug\ItSoftware.Core.csproj.CopyComplete
 D:\GitHub\ItSoftware.Core\ItSoftware.Core\ItSoftware.Core\obj\Debug\ItSoftware.Core.dll
 D:\GitHub\ItSoftware.Core\ItSoftware.Core\ItSoftware.Core\obj\Debug\ItSoftware.Core.pdb
-D:\GitHub\ItSoftware.Core\ItSoftware.Core\ItSoftware.Core\obj\Debug\ItSoftware.Core.csprojAssemblyReference.cache
