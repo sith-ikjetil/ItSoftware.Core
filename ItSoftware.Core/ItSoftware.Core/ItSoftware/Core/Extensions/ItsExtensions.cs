@@ -110,54 +110,8 @@ namespace ItSoftware.Core.Extensions
 			}
 			output.AppendLine();
 
-
-			var outputDbValidationError = new StringBuilder();
-			var type = exception.GetType();
-			if (type.FullName == "System.Data.Entity.Validation.DbEntityValidationException")
-			{
-				var pt = type.GetProperty("EntityValidationErrors");
-				if (pt != null)
-				{
-					var valEVE = pt.GetValue(exception);
-					var ieEVE = valEVE as IEnumerable;
-					foreach (var e in ieEVE)
-					{
-						var ptValEVE = e.GetType();
-						var props = ptValEVE.GetProperties();
-						foreach (var prop in props)
-						{
-							switch (prop.Name)
-							{
-								case "ValidationErrors":
-									{
-										var valError = prop.GetValue(e);
-										var ieError = valError as IEnumerable;
-										foreach (var ierr in ieError)
-										{
-											var ptError = ierr.GetType();
-											var emsg = ptError.GetProperty("ErrorMessage").GetValue(ierr);
-											var pname = ptError.GetProperty("PropertyName").GetValue(ierr);
-
-											outputDbValidationError.AppendLine($"[{pname}] = '{emsg}'");
-										}
-									}
-									break;
-								default:
-									break;
-							}
-						}
-					}
-				}
-			}
-
-			if ( outputDbValidationError.Length > 0 )
-            {
-				output.AppendLine("#####################################");
-				output.AppendLine("## DbEntityValidationException");
-				output.AppendLine("##");
-				output.Append(outputDbValidationError.ToString());
-            }
-
+			output.Append(ItsExceptionRenderExtension.Render(exception));
+			
 			if (exception.InnerException != null)
 			{
 				RenderExceptionHelper(output, exception.InnerException, true);

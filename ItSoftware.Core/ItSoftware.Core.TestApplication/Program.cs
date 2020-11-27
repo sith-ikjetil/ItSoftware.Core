@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using ItSoftware.Core.Extensions;
 using ItSoftware.Core.DbClient;
 using System.Net;
-using System.Data.SqlClient;
 //using ItSoftware.Core.HttpHost;
 //using ItSoftware.Core.Log;
 using System.Text.RegularExpressions;
@@ -60,7 +58,7 @@ namespace ItSoftware.Core.TestApplication
 				object count = dbClient.ExecuteScalar("SELECT COUNT(*) FROM [deltaker]");
 				Console.WriteLine($"Total number of rows: {count.ToString()}");
 			}*/
-
+			
 			Console.WriteLine( "Hashed MD5: " + "kjetil".ItsHashMD5( Encoding.ASCII ) );
 			Console.WriteLine( "Hashed SHA1: " + "kjetil".ItsHashSHA1( Encoding.ASCII ) );
 			Console.WriteLine( "Hashed SHA256: " + "kjetil".ItsHashSHA256( Encoding.ASCII ) );

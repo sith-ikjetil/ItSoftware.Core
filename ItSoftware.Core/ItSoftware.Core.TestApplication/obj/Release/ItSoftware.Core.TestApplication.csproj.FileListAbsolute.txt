@@ -78,11 +78,3 @@ D:\GitHub\ItSoftware.Core\ItSoftware.Core\ItSoftware.Core.TestApplication\obj\Re
 D:\GitHub\ItSoftware.Core\ItSoftware.Core\ItSoftware.Core.TestApplication\obj\Release\ItSoftware.Core.TestApplication.csproj.CopyComplete
 D:\GitHub\ItSoftware.Core\ItSoftware.Core\ItSoftware.Core.TestApplication\obj\Release\ItSoftware.Core.TestApplication.exe
 D:\GitHub\ItSoftware.Core\ItSoftware.Core\ItSoftware.Core.TestApplication\obj\Release\ItSoftware.Core.TestApplication.pdb
-D:\GitHub\ItSoftware.Core\ItSoftware.Core\ItSoftware.Core.TestApplication\bin\Release\ItSoftware.CaseFlow.Core.dll
-D:\GitHub\ItSoftware.Core\ItSoftware.Core\ItSoftware.Core.TestApplication\bin\Release\ItSoftware.CaseFlow.DB.dll
-D:\GitHub\ItSoftware.Core\ItSoftware.Core\ItSoftware.Core.TestApplication\bin\Release\EntityFramework.dll
-D:\GitHub\ItSoftware.Core\ItSoftware.Core\ItSoftware.Core.TestApplication\bin\Release\ItSoftware.CaseFlow.Core.pdb
-D:\GitHub\ItSoftware.Core\ItSoftware.Core\ItSoftware.Core.TestApplication\bin\Release\ItSoftware.CaseFlow.Core.dll.config
-D:\GitHub\ItSoftware.Core\ItSoftware.Core\ItSoftware.Core.TestApplication\bin\Release\ItSoftware.CaseFlow.DB.pdb
-D:\GitHub\ItSoftware.Core\ItSoftware.Core\ItSoftware.Core.TestApplication\bin\Release\ItSoftware.CaseFlow.DB.dll.config
-D:\GitHub\ItSoftware.Core\ItSoftware.Core\ItSoftware.Core.TestApplication\bin\Release\EntityFramework.xml

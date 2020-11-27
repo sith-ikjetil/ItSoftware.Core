@@ -46,3 +46,5 @@ D:\GitHub\ItSoftware.Core\ItSoftware.Core\ItSoftware.Core.TestApplication\bin\De
 D:\GitHub\ItSoftware.Core\ItSoftware.Core\ItSoftware.Core.TestApplication\bin\Debug\ItSoftware.CaseFlow.Core.dll.config
 D:\GitHub\ItSoftware.Core\ItSoftware.Core\ItSoftware.Core.TestApplication\bin\Debug\ItSoftware.CaseFlow.DB.pdb
 D:\GitHub\ItSoftware.Core\ItSoftware.Core\ItSoftware.Core.TestApplication\bin\Debug\ItSoftware.CaseFlow.DB.dll.config
+D:\GitHub\ItSoftware.Core\ItSoftware.Core\ItSoftware.Core.TestApplication\bin\Debug\EntityFramework.SqlServer.dll
+D:\GitHub\ItSoftware.Core\ItSoftware.Core\ItSoftware.Core.TestApplication\bin\Debug\EntityFramework.SqlServer.xml

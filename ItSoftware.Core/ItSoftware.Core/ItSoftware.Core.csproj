@@ -63,6 +63,8 @@
     <Compile Include="ItSoftware\Core\DbClient\ItsDbClientExceptionArgs.cs" />
     <Compile Include="ItSoftware\Core\Exception\ItsException.cs" />
     <Compile Include="ItSoftware\Core\Exception\ItsExceptionArgs.cs" />
+    <Compile Include="ItSoftware\Core\Exception\ItsExceptionRenderExtension.cs" />
+    <Compile Include="ItSoftware\Core\Exception\ItsExceptionRenderPropertyExtension.cs" />
     <Compile Include="ItSoftware\Core\Extensions\ItsExtensions.cs" />
     <Compile Include="ItSoftware\Core\HttpHost\ItsHttpHost.cs" />
     <Compile Include="ItSoftware\Core\HttpHost\ItsMiddleware.cs" />
