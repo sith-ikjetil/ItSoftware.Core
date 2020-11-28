@@ -15,36 +15,33 @@ namespace ItSoftware.Core.Exception
             //
             // DbEntityValidationException
             //
-            var ext1 = new ItsExceptionRenderExtension()
+            ItsExceptionRenderExtension.RenderExtensions.Add(new ItsExceptionRenderExtension()
             {
                 FullName = "System.Data.Entity.Validation.DbEntityValidationException",
-                Header = "DbEntityValidationException"
-            };
-            var prop1 = new ItsExceptionRenderPropertyExtension() {
-                Name = "EntityValidationErrors",
-                IsEnumerable = true,
-            };
-            var prop1s1 = new ItsExceptionRenderPropertyExtension()
-            {
-                Name = "ValidationErrors",
-                IsEnumerable = true,
-            };
-            var prop1s1s1 = new ItsExceptionRenderPropertyExtension()
-            {
-                Name = "PropertyName",
-                IsEnumerable = false,
-            };
-            var prop1s1s2 = new ItsExceptionRenderPropertyExtension()
-            {
-                Name = "ErrorMessage",
-                IsEnumerable = false,
-            };
-            prop1s1.Properties.Add(prop1s1s1);
-            prop1s1.Properties.Add(prop1s1s2);
-            prop1.Properties.Add(prop1s1);
-            ext1.Properties.Add(prop1);
-            ItsExceptionRenderExtension.RenderExtensions.Add(ext1);
-            //-------------------------------------------------------------------------
+                Header = "DbEntityValidationException",
+                Properties = new ItsExceptionRenderPropertyExtension[] {
+                    new ItsExceptionRenderPropertyExtension() {
+                        Name = "EntityValidationErrors",
+                        IsEnumerable = true,
+                        Properties = new ItsExceptionRenderPropertyExtension[] {
+                            new ItsExceptionRenderPropertyExtension() {
+                                Name = "ValidationErrors",
+                                IsEnumerable = true,
+                                Properties = new ItsExceptionRenderPropertyExtension[] {
+                                    new ItsExceptionRenderPropertyExtension() {
+                                        Name = "PropertyName",
+                                        IsEnumerable = false,
+                                    },
+                                    new ItsExceptionRenderPropertyExtension() {
+                                        Name = "ErrorMessage",
+                                        IsEnumerable = false,
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
         }
         public static string Render(System.Exception x)
         {
@@ -57,17 +54,25 @@ namespace ItSoftware.Core.Exception
 
                 foreach (var render in ItsExceptionRenderExtension.RenderExtensions)
                 {
-                    output.AppendLine("#####################################");
-                    output.AppendLine($"## {render.Header}");
-                    output.AppendLine("##");
+                    var outx = new StringBuilder();
+                    outx.AppendLine("#####################################");
+                    outx.AppendLine($"## {render.Header}");
+                    outx.AppendLine("##");
 
+                    var bClear = true;
                     var t = x.GetType();
                     if (t.FullName == render.FullName)
                     {
                         foreach (var p in render.Properties)
                         {
-                            output.Append(ItsExceptionRenderExtension.RenderProperty(x, t, p, x));
+                            outx.Append(ItsExceptionRenderExtension.RenderProperty(x, t, p, x));
+                            bClear = false;
                         }
+                    }
+
+                    if (!bClear)
+                    {
+                        output.Append(outx.ToString());
                     }
                 }
             }
@@ -87,12 +92,21 @@ namespace ItSoftware.Core.Exception
                 var propp = t.GetProperty(prop.Name);
                 var propv = propp.GetValue(obj);
                 var propie = propv as IEnumerable;
+                int i = 0;
                 foreach (var pie in propie)
                 {
-                    foreach (var p in prop.Properties)
+                    if (prop.Properties.Length > 0)
                     {
-                        output.Append(ItsExceptionRenderExtension.RenderProperty(x, pie.GetType(), p, pie));
+                        foreach (var p in prop.Properties)
+                        {
+                            output.Append(ItsExceptionRenderExtension.RenderProperty(x, pie.GetType(), p, pie));
+                        }
                     }
+                    else
+                    {
+                        output.AppendLine($"{prop.Name}[{i}] = {pie}");
+                    }
+                    i++;
                 }
             }
             else
@@ -112,6 +126,6 @@ namespace ItSoftware.Core.Exception
 
         public string FullName { get; set; } = string.Empty;
         public string Header { get; set; } = string.Empty;
-        public List<ItsExceptionRenderPropertyExtension> Properties { get; } = new List<ItsExceptionRenderPropertyExtension>();
+        public ItsExceptionRenderPropertyExtension[] Properties { get; set; }
     }
 }

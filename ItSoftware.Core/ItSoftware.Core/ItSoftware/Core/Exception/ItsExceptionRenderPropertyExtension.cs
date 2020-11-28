@@ -10,6 +10,6 @@ namespace ItSoftware.Core.Exception
     {
         public string Name { get; set; } = string.Empty;
         public bool IsEnumerable { get; set; } = false;
-        public List<ItsExceptionRenderPropertyExtension> Properties { get; } = new List<ItsExceptionRenderPropertyExtension>();
+        public ItsExceptionRenderPropertyExtension[] Properties { get; set; }
     }
 }
