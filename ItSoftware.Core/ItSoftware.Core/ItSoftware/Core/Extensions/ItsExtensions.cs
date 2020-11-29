@@ -73,6 +73,8 @@ namespace ItSoftware.Core.Extensions
 			output.Append(ItsExtensions.ItsRenderExceptionShort(exception));
 			output.AppendLine();
 
+			output.Append(ItsExceptionRenderExtension.Render(exception));
+
 			ItsExtensions.RenderExceptionHelper(output, exception, false);
 
 			return output.ToString();
@@ -109,8 +111,6 @@ namespace ItSoftware.Core.Extensions
 				}
 			}
 			output.AppendLine();
-
-			output.Append(ItsExceptionRenderExtension.Render(exception));
 			
 			if (exception.InnerException != null)
 			{

@@ -68,6 +68,7 @@ namespace ItSoftware.Core.TestApplication
 			Console.WriteLine();
 
 			Console.WriteLine();
+			Console.WriteLine(1000000000.ItsToDataSizeString(2, new System.Globalization.CultureInfo("en-US")));
 			Console.WriteLine(int.MaxValue.ItsToDataSizeString(2, new System.Globalization.CultureInfo("en-US")));
 			Console.WriteLine(uint.MaxValue.ItsToDataSizeString(2, new System.Globalization.CultureInfo("en-US")));
 			Console.WriteLine(long.MaxValue.ItsToDataSizeString(2, new System.Globalization.CultureInfo("en-US")));

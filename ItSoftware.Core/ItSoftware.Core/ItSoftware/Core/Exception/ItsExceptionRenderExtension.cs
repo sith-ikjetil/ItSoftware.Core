@@ -45,13 +45,16 @@ namespace ItSoftware.Core.Exception
         }
         public static string Render(System.Exception x)
         {
+            if (ItsExceptionRenderExtension.RenderExtensions.Count == 0 )
+			{
+                return string.Empty;
+			}
+
             var output = new StringBuilder();
             output.AppendLine();
 
             try
             {
-
-
                 foreach (var render in ItsExceptionRenderExtension.RenderExtensions)
                 {
                     var outx = new StringBuilder();
@@ -83,19 +86,31 @@ namespace ItSoftware.Core.Exception
 
             return output.ToString();
         }
-        public static string RenderProperty(System.Exception x, Type t, ItsExceptionRenderPropertyExtension prop, object obj)
+        private static string RenderProperty(System.Exception x, Type t, ItsExceptionRenderPropertyExtension prop, object obj)
         {
             var output = new StringBuilder();
 
             if (prop.IsEnumerable)
             {
                 var propp = t.GetProperty(prop.Name);
+                if ( propp == null )
+				{
+                    return string.Empty;
+				}
                 var propv = propp.GetValue(obj);
+                if ( propv == null )
+				{
+                    return string.Empty;
+				}
                 var propie = propv as IEnumerable;
+                if ( propie == null )
+				{
+                    return string.Empty;
+				}
                 int i = 0;
                 foreach (var pie in propie)
                 {
-                    if (prop.Properties.Length > 0)
+                    if (prop.Properties != null && prop.Properties.Length > 0)
                     {
                         foreach (var p in prop.Properties)
                         {
@@ -112,12 +127,23 @@ namespace ItSoftware.Core.Exception
             else
             {
                 var propv = t.GetProperty(prop.Name);
+                if ( propv == null )
+				{
+                    return string.Empty;
+				}
                 var val = propv.GetValue(obj);
+                if ( val == null )
+				{
+                    return string.Empty;
+				}
                 output.AppendLine($"{prop.Name} = {val}");
 
-                foreach (var p in prop.Properties)
+                if (prop.Properties != null)
                 {
-                    output.Append(ItsExceptionRenderExtension.RenderProperty(x, t, p, obj));
+                    foreach (var p in prop.Properties)
+                    {
+                        output.Append(ItsExceptionRenderExtension.RenderProperty(x, t, p, obj));
+                    }
                 }
             }
 
