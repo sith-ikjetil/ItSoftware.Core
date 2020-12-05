@@ -9,6 +9,7 @@ using System.Net;
 //using ItSoftware.Core.Log;
 using System.Text.RegularExpressions;
 using ItSoftware.Core.ID;
+using System.Diagnostics;
 
 namespace ItSoftware.Core.TestApplication
 {
@@ -16,6 +17,14 @@ namespace ItSoftware.Core.TestApplication
 	{
 		static void Main(string[] args)
 		{
+			var sw = new Stopwatch();
+			sw.Start();
+			System.Threading.Thread.Sleep(100);
+			sw.Stop();
+			Console.WriteLine($"{sw.ItsGetStopWatchNanoSeconds()}ns");
+			Console.WriteLine($"{sw.ItsGetStopWatchMicroSeconds()}us");
+			Console.WriteLine($"{sw.ItsGetStopWatchMilliSeconds()}ms");
+			
 			var match = "a\r\naaKJETIL KRISTOFFER SOLBERGbbba\r\naaYES MANbbb".ItsRegExPatternMatchesAsArray(@"a(\s*)aa([\w ]+)bbb");
 			foreach (var s in match)
 			{
