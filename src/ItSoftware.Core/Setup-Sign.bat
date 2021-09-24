@@ -1,2 +1,2 @@
 ECHO CREATING DIGITAL SIGNATURE
-"C:\Program Files (x86)\Windows Kits\10\bin\10.0.18362.0\x64\signtool" sign /sm /sha1 f493f5b42739c8ffe9b83469ee8da308c6725c8b /t "http://timestamp.verisign.com/scripts/timstamp.dll" .\bin\Release\ItSoftware.Core.dll
+"C:\Program Files (x86)\Windows Kits\10\bin\10.0.18362.0\x64\signtool" sign /sm /sha1 85208471365034134761c4326c082209b103d6d6 /t "http://timestamp.comodoca.com/authenticode" .\bin\Release\ItSoftware.Core.dll
