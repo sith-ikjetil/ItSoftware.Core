@@ -34,6 +34,7 @@ namespace ItSoftware.Core.TestApplication
 				TestItsRenderTimeSpan();
 				TestItsRenderException();
 				TestItsHttpHost();
+				TestItsRandom();
 			}
 			catch (System.Exception y)
 			{
@@ -247,6 +248,18 @@ namespace ItSoftware.Core.TestApplication
 			}*/
 
 			Console.WriteLine();
+		}
+
+		private void TestItsRandom()
+        {
+			PrintTestHeader("ItsRandom");
+
+			var list = new List<string>() { "Anne", "Beta", "Bob", "Charlie", "Isabel", "John" };
+
+			for (int i = 0; i < 10; i++)
+			{
+				Console.WriteLine(list.ItsRandom());
+			}
 		}
 	}
 }

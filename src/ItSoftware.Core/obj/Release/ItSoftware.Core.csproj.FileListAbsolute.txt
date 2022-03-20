@@ -70,3 +70,4 @@ D:\GitHub\ItSoftware.Core\src\ItSoftware.Core\obj\Release\ItSoftware.Core.csproj
 D:\GitHub\ItSoftware.Core\src\ItSoftware.Core\obj\Release\ItSoftware.Core.csproj.CopyComplete
 D:\GitHub\ItSoftware.Core\src\ItSoftware.Core\obj\Release\ItSoftware.Core.dll
 D:\GitHub\ItSoftware.Core\src\ItSoftware.Core\obj\Release\ItSoftware.Core.pdb
+D:\GitHub\ItSoftware.Core\src\ItSoftware.Core\obj\Release\ItSoftware.Core.csproj.AssemblyReference.cache

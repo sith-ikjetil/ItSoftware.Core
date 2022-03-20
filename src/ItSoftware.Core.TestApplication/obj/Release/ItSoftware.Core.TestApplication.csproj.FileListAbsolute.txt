@@ -98,3 +98,4 @@ D:\GitHub\ItSoftware.Core\src\ItSoftware.Core.TestApplication\obj\Release\ItSoft
 D:\GitHub\ItSoftware.Core\src\ItSoftware.Core.TestApplication\obj\Release\ItSoftware.Core.TestApplication.csproj.CopyComplete
 D:\GitHub\ItSoftware.Core\src\ItSoftware.Core.TestApplication\obj\Release\ItSoftware.Core.TestApplication.exe
 D:\GitHub\ItSoftware.Core\src\ItSoftware.Core.TestApplication\obj\Release\ItSoftware.Core.TestApplication.pdb
+D:\GitHub\ItSoftware.Core\src\ItSoftware.Core.TestApplication\obj\Release\ItSoftware.Core.TestApplication.csproj.SuggestedBindingRedirects.cache
