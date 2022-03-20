@@ -24,17 +24,17 @@ namespace ItSoftware.Core.TestApplication
 
 			try
 			{
-				TestItsRegularExpressions();
-				TestItsLog();
-				TestItsHash();
-				TestItsDataSizeString();
-				TestItsWidthExpand();
-				TestItsDbClient();
-				TestItsID();
-				TestItsRenderTimeSpan();
-				TestItsRenderException();
-				TestItsHttpHost();
-				TestItsRandom();
+				this.TestItsRegularExpressions();
+				this.TestItsLog();
+				this.TestItsHash();
+				this.TestItsDataSizeString();
+				this.TestItsWidthExpand();
+				this.TestItsDbClient();
+				this.TestItsID();
+				this.TestItsRenderTimeSpan();
+				this.TestItsRenderException();
+				this.TestItsHttpHost();
+				this.TestItsRandom();
 			}
 			catch (System.Exception y)
 			{
