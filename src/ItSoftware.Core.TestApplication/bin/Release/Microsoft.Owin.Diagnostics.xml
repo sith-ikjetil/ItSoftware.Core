@@ -4,20 +4,22 @@
         <name>Microsoft.Owin.Diagnostics</name>
     </assembly>
     <members>
-        <member name="T:Microsoft.Owin.Diagnostics.Views.ErrorDetails">
+        <member name="T:Microsoft.Owin.Diagnostics.ErrorPageMiddleware">
             <summary>
-            Contains details for individual exception messages.
+            Captures synchronous and asynchronous exceptions from the pipeline and generates HTML error responses.
             </summary>
         </member>
-        <member name="P:Microsoft.Owin.Diagnostics.Views.ErrorDetails.Error">
+        <member name="M:Microsoft.Owin.Diagnostics.ErrorPageMiddleware.#ctor(System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task},Microsoft.Owin.Diagnostics.ErrorPageOptions,Microsoft.Owin.Logging.ILogger,System.Boolean)">
             <summary>
-            An individual exception
+            Initializes a new instance of the <see cref="T:Microsoft.Owin.Diagnostics.ErrorPageMiddleware"/> class
             </summary>
         </member>
-        <member name="P:Microsoft.Owin.Diagnostics.Views.ErrorDetails.StackFrames">
+        <member name="M:Microsoft.Owin.Diagnostics.ErrorPageMiddleware.Invoke(System.Collections.Generic.IDictionary{System.String,System.Object})">
             <summary>
-            The generated stack frames
+            Process an individual request.
             </summary>
+            <param name="environment"></param>
+            <returns></returns>
         </member>
         <member name="T:Microsoft.Owin.Diagnostics.ErrorPageOptions">
             <summary>
@@ -28,12 +30,6 @@
             <summary>
             Create an instance with the default options settings.
             </summary>
-        </member>
-        <member name="M:Microsoft.Owin.Diagnostics.ErrorPageOptions.SetDefaultVisibility(System.Boolean)">
-            <summary>
-            Sets the default visibility for options not otherwise specified.
-            </summary>
-            <param name="isVisible"></param>
         </member>
         <member name="P:Microsoft.Owin.Diagnostics.ErrorPageOptions.ShowAll">
             <summary>
@@ -76,6 +72,12 @@
             <summary>
             Enables the enumeration of the OWIN environment values.
             </summary>
+        </member>
+        <member name="M:Microsoft.Owin.Diagnostics.ErrorPageOptions.SetDefaultVisibility(System.Boolean)">
+            <summary>
+            Sets the default visibility for options not otherwise specified.
+            </summary>
+            <param name="isVisible"></param>
         </member>
         <member name="T:Microsoft.Owin.Diagnostics.Resources">
             <summary>
@@ -238,6 +240,26 @@
             Infrastructure
             </summary>
         </member>
+        <member name="P:Microsoft.Owin.Diagnostics.Views.BaseView.Context">
+            <summary>
+            The request context
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Diagnostics.Views.BaseView.Request">
+            <summary>
+            The request
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Diagnostics.Views.BaseView.Response">
+            <summary>
+            The response
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Diagnostics.Views.BaseView.Output">
+            <summary>
+            The output stream
+            </summary>
+        </member>
         <member name="M:Microsoft.Owin.Diagnostics.Views.BaseView.Execute(Microsoft.Owin.IOwinContext)">
             <summary>
             Execute an individual request
@@ -363,24 +385,59 @@
             </summary>
             <param name="value"></param>
         </member>
-        <member name="P:Microsoft.Owin.Diagnostics.Views.BaseView.Context">
+        <member name="T:Microsoft.Owin.Diagnostics.Views.ErrorDetails">
             <summary>
-            The request context
+            Contains details for individual exception messages.
             </summary>
         </member>
-        <member name="P:Microsoft.Owin.Diagnostics.Views.BaseView.Request">
+        <member name="P:Microsoft.Owin.Diagnostics.Views.ErrorDetails.Error">
             <summary>
-            The request
+            An individual exception
             </summary>
         </member>
-        <member name="P:Microsoft.Owin.Diagnostics.Views.BaseView.Response">
+        <member name="P:Microsoft.Owin.Diagnostics.Views.ErrorDetails.StackFrames">
             <summary>
-            The response
+            The generated stack frames
             </summary>
         </member>
-        <member name="P:Microsoft.Owin.Diagnostics.Views.BaseView.Output">
+        <member name="P:Microsoft.Owin.Diagnostics.Views.ErrorPage.Model">
             <summary>
-            The output stream
+            
+            </summary>
+        </member>
+        <member name="T:Microsoft.Owin.Diagnostics.Views.ErrorPageModel">
+            <summary>
+            Holds data to be displayed on the error page.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Diagnostics.Views.ErrorPageModel.Options">
+            <summary>
+            Options for what output to display.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Diagnostics.Views.ErrorPageModel.ErrorDetails">
+            <summary>
+            Detailed information about each exception in the stack
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Diagnostics.Views.ErrorPageModel.Query">
+            <summary>
+            Parsed query data
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Diagnostics.Views.ErrorPageModel.Cookies">
+            <summary>
+            Request cookies
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Diagnostics.Views.ErrorPageModel.Headers">
+            <summary>
+            Request headers
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Diagnostics.Views.ErrorPageModel.Environment">
+            <summary>
+            The request environment
             </summary>
         </member>
         <member name="T:Microsoft.Owin.Diagnostics.Views.StackFrame">
@@ -423,45 +480,56 @@
             
             </summary>
         </member>
-        <member name="T:Microsoft.Owin.Diagnostics.Views.ErrorPageModel">
+        <member name="T:Microsoft.Owin.Diagnostics.WelcomePageMiddleware">
             <summary>
-            Holds data to be displayed on the error page.
+            This middleware provides a default web page for new applications.
             </summary>
         </member>
-        <member name="P:Microsoft.Owin.Diagnostics.Views.ErrorPageModel.Options">
+        <member name="M:Microsoft.Owin.Diagnostics.WelcomePageMiddleware.#ctor(System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task},Microsoft.Owin.Diagnostics.WelcomePageOptions)">
             <summary>
-            Options for what output to display.
+            Creates a default web page for new applications.
+            </summary>
+            <param name="next"></param>
+            <param name="options"></param>
+        </member>
+        <member name="M:Microsoft.Owin.Diagnostics.WelcomePageMiddleware.Invoke(System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Process an individual request.
+            </summary>
+            <param name="environment"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Owin.Diagnostics.WelcomePageOptions">
+            <summary>
+            Options for the WelcomePageMiddleware.
             </summary>
         </member>
-        <member name="P:Microsoft.Owin.Diagnostics.Views.ErrorPageModel.ErrorDetails">
+        <member name="P:Microsoft.Owin.Diagnostics.WelcomePageOptions.Path">
             <summary>
-            Detailed information about each exception in the stack
+            Specifies which requests paths will be responded to. Exact matches only. Leave null to handle all requests.
             </summary>
         </member>
-        <member name="P:Microsoft.Owin.Diagnostics.Views.ErrorPageModel.Query">
+        <member name="T:Owin.ErrorPageExtensions">
             <summary>
-            Parsed query data
+            IAppBuilder extension methods for the ErrorPageMiddleware.
             </summary>
         </member>
-        <member name="P:Microsoft.Owin.Diagnostics.Views.ErrorPageModel.Cookies">
+        <member name="M:Owin.ErrorPageExtensions.UseErrorPage(Owin.IAppBuilder)">
             <summary>
-            Request cookies
+            Captures synchronous and asynchronous exceptions from the pipeline and generates HTML error responses.
+            Full error details are only displayed by default if 'host.AppMode' is set to 'development' in the IAppBuilder.Properties.
             </summary>
+            <param name="builder"></param>
+            <returns></returns>
         </member>
-        <member name="P:Microsoft.Owin.Diagnostics.Views.ErrorPageModel.Headers">
+        <member name="M:Owin.ErrorPageExtensions.UseErrorPage(Owin.IAppBuilder,Microsoft.Owin.Diagnostics.ErrorPageOptions)">
             <summary>
-            Request headers
+            Captures synchronous and asynchronous exceptions from the pipeline and generates HTML error responses.
+            Full error details are only displayed by default if 'host.AppMode' is set to 'development' in the IAppBuilder.Properties.
             </summary>
-        </member>
-        <member name="P:Microsoft.Owin.Diagnostics.Views.ErrorPageModel.Environment">
-            <summary>
-            The request environment
-            </summary>
-        </member>
-        <member name="P:Microsoft.Owin.Diagnostics.Views.ErrorPage.Model">
-            <summary>
-            
-            </summary>
+            <param name="builder"></param>
+            <param name="options"></param>
+            <returns></returns>
         </member>
         <member name="T:Owin.WelcomePageExtensions">
             <summary>
@@ -498,77 +566,6 @@
             </summary>
             <param name="builder"></param>
             <returns></returns>
-        </member>
-        <member name="T:Microsoft.Owin.Diagnostics.WelcomePageMiddleware">
-            <summary>
-            This middleware provides a default web page for new applications.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Owin.Diagnostics.WelcomePageMiddleware.#ctor(System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task},Microsoft.Owin.Diagnostics.WelcomePageOptions)">
-            <summary>
-            Creates a default web page for new applications.
-            </summary>
-            <param name="next"></param>
-            <param name="options"></param>
-        </member>
-        <member name="M:Microsoft.Owin.Diagnostics.WelcomePageMiddleware.Invoke(System.Collections.Generic.IDictionary{System.String,System.Object})">
-            <summary>
-            Process an individual request.
-            </summary>
-            <param name="environment"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Owin.ErrorPageExtensions">
-            <summary>
-            IAppBuilder extension methods for the ErrorPageMiddleware.
-            </summary>
-        </member>
-        <member name="M:Owin.ErrorPageExtensions.UseErrorPage(Owin.IAppBuilder)">
-            <summary>
-            Captures synchronous and asynchronous exceptions from the pipeline and generates HTML error responses.
-            Full error details are only displayed by default if 'host.AppMode' is set to 'development' in the IAppBuilder.Properties.
-            </summary>
-            <param name="builder"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Owin.ErrorPageExtensions.UseErrorPage(Owin.IAppBuilder,Microsoft.Owin.Diagnostics.ErrorPageOptions)">
-            <summary>
-            Captures synchronous and asynchronous exceptions from the pipeline and generates HTML error responses.
-            Full error details are only displayed by default if 'host.AppMode' is set to 'development' in the IAppBuilder.Properties.
-            </summary>
-            <param name="builder"></param>
-            <param name="options"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Microsoft.Owin.Diagnostics.ErrorPageMiddleware">
-            <summary>
-            Captures synchronous and asynchronous exceptions from the pipeline and generates HTML error responses.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Owin.Diagnostics.ErrorPageMiddleware.#ctor(System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task},Microsoft.Owin.Diagnostics.ErrorPageOptions,Microsoft.Owin.Logging.ILogger,System.Boolean)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.Owin.Diagnostics.ErrorPageMiddleware"/> class
-            </summary>
-            <param name="next"></param>
-            <param name="options"></param>
-            <param name="isDevMode"></param>
-        </member>
-        <member name="M:Microsoft.Owin.Diagnostics.ErrorPageMiddleware.Invoke(System.Collections.Generic.IDictionary{System.String,System.Object})">
-            <summary>
-            Process an individual request.
-            </summary>
-            <param name="environment"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Microsoft.Owin.Diagnostics.WelcomePageOptions">
-            <summary>
-            Options for the WelcomePageMiddleware.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Owin.Diagnostics.WelcomePageOptions.Path">
-            <summary>
-            Specifies which requests paths will be responded to. Exact matches only. Leave null to handle all requests.
-            </summary>
         </member>
     </members>
 </doc>

@@ -4,18 +4,6 @@
         <name>Microsoft.Owin.Host.HttpListener</name>
     </assembly>
     <members>
-        <member name="T:Microsoft.Owin.Host.HttpListener.RequestProcessing.ExceptionFilterStream">
-            <summary>
-            This class is used to wrap other streams and convert some exception types.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Owin.Host.HttpListener.RequestProcessing.RequestHeadersDictionary">
-            <summary>
-            This wraps HttpListenerRequest's WebHeaderCollection (NameValueCollection) and adapts it to 
-            the OWIN required IDictionary surface area. It remains fully mutable, but you will be subject 
-            to the header validations performed by the underlying collection.
-            </summary>
-        </member>
         <member name="T:Microsoft.Owin.Host.HttpListener.OwinHttpListener">
             <summary>
             This wraps HttpListener and exposes it as an OWIN compatible server.
@@ -24,6 +12,11 @@
         <member name="M:Microsoft.Owin.Host.HttpListener.OwinHttpListener.#ctor">
             <summary>
             Creates a listener wrapper that can be configured by the user before starting.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Host.HttpListener.OwinHttpListener.Listener">
+            <summary>
+            The HttpListener instance wrapped by this wrapper.
             </summary>
         </member>
         <member name="M:Microsoft.Owin.Host.HttpListener.OwinHttpListener.SetRequestProcessingLimits(System.Int32,System.Int32)">
@@ -57,9 +50,28 @@
             Shuts down the listener and disposes it.
             </summary>
         </member>
-        <member name="P:Microsoft.Owin.Host.HttpListener.OwinHttpListener.Listener">
+        <member name="T:Microsoft.Owin.Host.HttpListener.OwinServerFactory">
             <summary>
-            The HttpListener instance wrapped by this wrapper.
+            Implements the Katana setup pattern for the OwinHttpListener server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Owin.Host.HttpListener.OwinServerFactory.Initialize(System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Advertise the capabilities of the server.
+            </summary>
+            <param name="properties"></param>
+        </member>
+        <member name="M:Microsoft.Owin.Host.HttpListener.OwinServerFactory.Create(System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Creates an OwinHttpListener and starts listening on the given URL.
+            </summary>
+            <param name="app">The application entry point.</param>
+            <param name="properties">The addresses to listen on.</param>
+            <returns>The OwinHttpListener.  Invoke Dispose to shut down.</returns>
+        </member>
+        <member name="T:Microsoft.Owin.Host.HttpListener.RequestProcessing.ExceptionFilterStream">
+            <summary>
+            This class is used to wrap other streams and convert some exception types.
             </summary>
         </member>
         <member name="T:Microsoft.Owin.Host.HttpListener.RequestProcessing.OwinHttpListenerRequest">
@@ -84,6 +96,13 @@
             <summary>
             Initializes a new instance of the <see cref="T:Microsoft.Owin.Host.HttpListener.RequestProcessing.OwinHttpListenerResponse"/> class.
             Sets up the Environment with the necessary request state items.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Owin.Host.HttpListener.RequestProcessing.RequestHeadersDictionary">
+            <summary>
+            This wraps HttpListenerRequest's WebHeaderCollection (NameValueCollection) and adapts it to 
+            the OWIN required IDictionary surface area. It remains fully mutable, but you will be subject 
+            to the header validations performed by the underlying collection.
             </summary>
         </member>
         <member name="T:Microsoft.Owin.Host.HttpListener.Resources">
@@ -111,25 +130,6 @@
             <summary>
               Looks up a localized string similar to The response headers have already been sent..
             </summary>
-        </member>
-        <member name="T:Microsoft.Owin.Host.HttpListener.OwinServerFactory">
-            <summary>
-            Implements the Katana setup pattern for the OwinHttpListener server.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Owin.Host.HttpListener.OwinServerFactory.Initialize(System.Collections.Generic.IDictionary{System.String,System.Object})">
-            <summary>
-            Advertise the capabilities of the server.
-            </summary>
-            <param name="properties"></param>
-        </member>
-        <member name="M:Microsoft.Owin.Host.HttpListener.OwinServerFactory.Create(System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task},System.Collections.Generic.IDictionary{System.String,System.Object})">
-            <summary>
-            Creates an OwinHttpListener and starts listening on the given URL.
-            </summary>
-            <param name="app">The application entry point.</param>
-            <param name="properties">The addresses to listen on.</param>
-            <returns>The OwinHttpListener.  Invoke Dispose to shut down.</returns>
         </member>
         <member name="T:Microsoft.Owin.Host.HttpListener.WebSockets.Constants">
             <summary>
