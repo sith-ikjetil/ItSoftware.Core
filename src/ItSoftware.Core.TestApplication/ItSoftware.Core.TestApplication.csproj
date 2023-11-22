@@ -9,7 +9,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>ItSoftware.Core.TestApplication</RootNamespace>
     <AssemblyName>ItSoftware.Core.TestApplication</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <SccProjectName>SAK</SccProjectName>

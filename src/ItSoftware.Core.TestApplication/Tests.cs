@@ -100,7 +100,7 @@ namespace ItSoftware.Core.TestApplication
 			log.LogInformation("Information Title", "Information text");
 			log.LogWarning("Warning Title", "Warning text");
 			log.LogError("Error Title", "Error text");
-			log.LogDebug("Debug Title", "Debug text");
+			log.LogDebug("Debug Title", "Debug text", "Some detail here");
 			log.LogOther("Other Title", "Other text");
 
 			Console.WriteLine(log.ToString());

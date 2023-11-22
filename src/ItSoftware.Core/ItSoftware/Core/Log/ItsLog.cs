@@ -11,214 +11,425 @@ using System.Xml.Linq;
 
 namespace ItSoftware.Core.Log
 {
-	public class ItsLog
-	{
-		#region Public Static Properties
-		public static ItsLog ApplicationLog { get; set; }
-		#endregion
+    public class ItsLogEventArgs : EventArgs
+    {
+        public ItsLogEntry ItemAdded { get; set; } = null;
+    }
 
-		#region Public Properties
-		public string FileName { get; private set; }
-		public ObservableCollection<ItsLogEntry> Entries { get; private set; } = new ObservableCollection<ItsLogEntry>( );
-		public string EventLogSourceName { get; private set; }
-		public bool ReportToEventLog { get; set; } = true;
-		public bool AutoSave { get; set; } = true;
-		public bool DoLogInformation { get; set; } = true;
-		public bool DoLogWarning { get; set; } = true;
-		public bool DoLogError { get; set; } = true;
-		public bool DoLogDebug { get; set; } = true;
-		public bool DoLogOther { get; set; } = true;
-		#endregion
+    public delegate void ItsLogItemAddedEventHandler(object sender, ItsLogEventArgs e);
 
-		#region Constructors
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="filename"></param>
-		public ItsLog( string filename, string eventLogSourceName, bool loadOld )
-		{
-			this.FileName = filename;
-			this.EventLogSourceName = eventLogSourceName;
+    public class ItsLog
+    {
+        #region Private Fields
+        private object _lock = new object();
+        #endregion
 
-			if ( loadOld )
-			{
-				if ( File.Exists( this.FileName ) )
-				{
-					LoadLog( this.FileName );
-				}
-			}
-		}
-		#endregion
+        #region Public Static Properties
+        public static ItsLog ApplicationLog { get; set; } = null;
+        #endregion
 
-		#region Public Methods
-		/// <summary>
-		/// Clears log.
-		/// </summary>
-		public void ClearLog( )
-		{
-			this.Entries.Clear( );
-		}
-		/// <summary>
-		/// Loads log from file.
-		/// </summary>
-		/// <param name="filename"></param>
-		public void LoadLog( string filename )
-		{
-			this.ClearLog( );
+        #region Public Properties
+        public string FileName { get; private set; }
+        public ObservableCollection<ItsLogEntry> Entries { get; private set; } = new ObservableCollection<ItsLogEntry>();
+        public string EventLogName { get; private set; }
+        public bool AutoSave { get; set; } = true;
+        public bool AutoPurge { get; set; } = false;
+        public int PurgeLimit { get; set; } = 5000;
+        public bool DoLogInformation { get; set; } = true;
+        public bool DoLogWarning { get; set; } = true;
+        public bool DoLogError { get; set; } = true;
+        public bool DoLogDebug { get; set; } = true;
+        public bool DoLogOther { get; set; } = true;
+        #endregion
 
-			try
-			{
-				XDocument xd = XDocument.Load( filename );
+        #region Public Events
+        public event ItsLogItemAddedEventHandler ItemAdded;
+        #endregion
 
-				foreach ( var element in xd.Root.Elements( "LogEntry" ) )
-				{
-					this.Entries.Add( new ItsLogEntry( element ) );
-				}
-			}
-			catch ( System.Exception x )
-			{
-				this.ClearLog( );
-				this.LogError( "ItsLog.LoadLog", x.ItsRenderException( ) );
-			}
-		}
-		/// <summary>
-		/// 
-		/// </summary>
-		public void SaveLog( )
-		{
-			this.SaveLog( this.FileName );
-		}
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="filename"></param>
-		public void SaveLog( string filename )
-		{
-			XDocument xd = new XDocument( new XDeclaration( "1.0", "utf-8", null ) );
+        #region Constructors
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="filename"></param>
+        public ItsLog(string filename, string eventLogName, bool loadOld)
+        {
+            this.FileName = filename;
+            this.EventLogName = eventLogName;
 
-			XElement xeRoot = new XElement( "Log" );
-			xd.Add( xeRoot );
-			xeRoot.SetAttributeValue("Name", this.EventLogSourceName ?? string.Empty);
-
-			foreach ( var entry in this.Entries )
-			{
-				try
-				{
-					xeRoot.Add( entry.ToXElement( ) );
-				}
-				catch ( System.Exception )
-				{
-
-				}
-			}
-
-			xd.Save( filename );
-		}
-		/// <summary>
-		/// Log information entry.
-		/// </summary>
-		/// <param name="text"></param>
-		public void LogInformation( string title, string text )
-		{
-			if ( !this.DoLogInformation )
+            if (loadOld)
             {
-				return;
+                if (File.Exists(this.FileName))
+                {
+                    LoadLog(this.FileName);
+                }
+            }
+        }
+        #endregion
+
+        #region Public Methods
+        /// <summary>
+        /// Clears log.
+        /// </summary>
+        public void ClearLog()
+        {
+            lock (this._lock)
+            {
+                this.Entries.Clear();
+            }
+        }
+        /// <summary>
+        /// Loads log from file.
+        /// </summary>
+        /// <param name="filename"></param>
+        public void LoadLog(string filename)
+        {
+            lock (this._lock)
+            {
+                this.ClearLog();
+
+                try
+                {
+                    XDocument xd = XDocument.Load(filename);
+
+                    foreach (var element in xd.Root?.Elements("LogEntry") ?? Enumerable.Empty<XElement>())
+                    {
+                        this.Entries.Add(new ItsLogEntry(element));
+                    }
+
+                    if (this.AutoPurge)
+                    {
+                        if (this.Entries.Count >= this.PurgeLimit)
+                        {
+                            var elements = this.Entries.Skip(Math.Max(0, this.Entries.Count - this.PurgeLimit));
+                            this.Entries.Clear();
+                            foreach (var e in elements)
+                            {
+                                this.Entries.Add(e);
+                            }
+
+                            if (this.AutoSave)
+                            {
+                                this.SaveLog();
+                            }
+
+                        }
+                    }
+                }
+                catch (System.Exception x)
+                {
+                    this.ClearLog();
+                    this.LogError("ItsLog.LoadLog", x.ItsRenderException());
+                }
+            }// lock
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public void SaveLog()
+        {
+            this.SaveLog(this.FileName);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filename"></param>
+        public void SaveLog(string filename)
+        {
+            this.ToXDocument().Save(filename);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filename"></param>
+        public XDocument ToXDocument()
+        {
+            XDocument xd = new XDocument(new XDeclaration("1.0", "utf-8", null));
+
+            XElement xeRoot = new XElement("Log");
+            xd.Add(xeRoot);
+            xeRoot.SetAttributeValue("Name", this.EventLogName ?? string.Empty);
+
+            lock (this._lock)
+            {
+                foreach (var entry in this.Entries)
+                {
+                    try
+                    {
+                        xeRoot.Add(entry.ToXElement());
+                    }
+                    catch (System.Exception)
+                    {
+
+                    }
+                }
             }
 
-			if ( this.ReportToEventLog )
-			{
-				EventLog.WriteEntry( this.EventLogSourceName, $"{title}{Environment.NewLine}{text}", EventLogEntryType.Information );
-			}			
-
-			this.Entries.Add( new ItsLogEntry( ) { Text = text, Type = ItsLogType.Information, When = DateTime.Now, Title = title } );
-
-			if ( this.AutoSave )
-			{
-				this.SaveLog( );
-			}
-		}
-		/// <summary>
-		/// Log warning entry.
-		/// </summary>
-		/// <param name="text"></param>
-		public void LogWarning( string title, string text )
-		{
-			if (!this.DoLogWarning)
+            return xd;
+        }
+        /// <summary>
+        /// Log information entry.
+        /// </summary>
+        /// <param name="text"></param>
+        public void LogInformation(string title, string text)
+        {
+            this.LogInformation(title, text, string.Empty);
+        }
+        /// <summary>
+        /// Log information entry.
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="text"></param>
+        /// <param name="details"></param>
+        public void LogInformation(string title, string text, string details)
+        {
+            lock (this._lock)
             {
-				return;
+                if (!this.DoLogInformation)
+                {
+                    return;
+                }
+
+                if (this.AutoPurge)
+                {
+                    if (this.Entries.Count >= this.PurgeLimit)
+                    {
+                        var elements = new ObservableCollection<ItsLogEntry>(this.Entries.Skip(Math.Max(0, this.Entries.Count - this.PurgeLimit)));
+                        this.Entries.Clear();
+                        this.Entries = elements;
+
+                        if (this.AutoSave)
+                        {
+                            this.SaveLog();
+                        }
+                    }
+                }
+
+                this.Entries.Add(new ItsLogEntry() { Text = text, Details = details, Type = ItsLogType.Information, When = DateTime.Now, Title = title });
+
+                if (this.AutoSave)
+                {
+                    this.SaveLog();
+                }
+
+                this.ItemAdded?.Invoke(this, new ItsLogEventArgs() { ItemAdded = this.Entries.Last() });
             }
-
-			if ( this.ReportToEventLog )
-			{ 
-				EventLog.WriteEntry( this.EventLogSourceName, $"{title}{Environment.NewLine}{text}", EventLogEntryType.Warning );
-			}			
-
-			this.Entries.Add( new ItsLogEntry( ) { Text = text, Type = ItsLogType.Warning, When = DateTime.Now, Title = title } );
-
-			if ( this.AutoSave )
-			{
-				this.SaveLog( );
-			}
-		}
-		/// <summary>
-		/// Log error entry.
-		/// </summary>
-		/// <param name="text"></param>
-		public void LogError( string title, string text )
-		{
-			if (!this.DoLogError)
+        }
+        /// <summary>
+        /// Log warning entry.
+        /// </summary>
+        /// <param name="text"></param>
+        public void LogWarning(string title, string text)
+        {
+            this.LogWarning(title, text, string.Empty);
+        }
+        /// <summary>
+        /// Log warning entry.
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="text"></param>
+        /// <param name="details"></param>
+        public void LogWarning(string title, string text, string details)
+        {
+            lock (this._lock)
             {
-				return;
+                if (!this.DoLogWarning)
+                {
+                    return;
+                }
+
+                if (this.AutoPurge)
+                {
+                    if (this.Entries.Count >= this.PurgeLimit)
+                    {
+                        var elements = new ObservableCollection<ItsLogEntry>(this.Entries.Skip(Math.Max(0, this.Entries.Count - this.PurgeLimit)));
+                        this.Entries.Clear();
+                        this.Entries = elements;
+
+                        if (this.AutoSave)
+                        {
+                            this.SaveLog();
+                        }
+                    }
+                }
+
+                this.Entries.Add(new ItsLogEntry() { Text = text, Details = details, Type = ItsLogType.Warning, When = DateTime.Now, Title = title });
+
+                if (this.AutoSave)
+                {
+                    this.SaveLog();
+                }
+
+                this.ItemAdded?.Invoke(this, new ItsLogEventArgs() { ItemAdded = this.Entries.Last() });
             }
-
-			if ( this.ReportToEventLog )
-			{
-				EventLog.WriteEntry( this.EventLogSourceName, $"{title}{Environment.NewLine}{text}", EventLogEntryType.Error );
-			}			
-
-			this.Entries.Add( new ItsLogEntry( ) { Text = text, Type = ItsLogType.Error, When = DateTime.Now, Title = title } );
-
-			if ( this.AutoSave )
-			{
-				this.SaveLog( );
-			}
-		}
-		/// <summary>
-		/// Log debug entry.
-		/// </summary>
-		/// <param name="text"></param>
-		public void LogDebug( string title, string text )
-		{
-			if (!this.DoLogDebug)
+        }
+        /// <summary>
+        /// Log error entry.
+        /// </summary>
+        /// <param name="text"></param>
+        public void LogError(string title, string text)
+        {
+            this.LogError(title, text, string.Empty);
+        }
+        /// <summary>
+        /// Log error entry
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="text"></param>
+        /// <param name="details"></param>
+        public void LogError(string title, string text, string details)
+        {
+            lock (this._lock)
             {
-				return;
+                if (!this.DoLogError)
+                {
+                    return;
+                }
+
+                if (this.AutoPurge)
+                {
+                    if (this.Entries.Count >= this.PurgeLimit)
+                    {
+                        var elements = new ObservableCollection<ItsLogEntry>(this.Entries.Skip(Math.Max(0, this.Entries.Count - this.PurgeLimit)));
+                        this.Entries.Clear();
+                        this.Entries = elements;
+
+                        if (this.AutoSave)
+                        {
+                            this.SaveLog();
+                        }
+                    }
+                }
+
+                this.Entries.Add(new ItsLogEntry() { Text = text, Details = details, Type = ItsLogType.Error, When = DateTime.Now, Title = title });
+
+                if (this.AutoSave)
+                {
+                    this.SaveLog();
+                }
+
+                this.ItemAdded?.Invoke(this, new ItsLogEventArgs() { ItemAdded = this.Entries.Last() });
             }
-
-			this.Entries.Add( new ItsLogEntry( ) { Text = text, Type = ItsLogType.Debug, When = DateTime.Now, Title = title } );
-
-			if ( this.AutoSave )
-			{
-				this.SaveLog( );
-			}
-		}
-		/// <summary>
-		/// Log other entry.
-		/// </summary>
-		/// <param name="text"></param>
-		public void LogOther( string title, string text )
-		{
-			if (!this.DoLogOther)
+        }
+        /// <summary>
+        /// Log debug entry.
+        /// </summary>
+        /// <param name="text"></param>
+        public void LogDebug(string title, string text)
+        {
+            this.LogDebug(title, text, string.Empty);
+        }
+        /// <summary>
+        /// Log debug entry.
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="text"></param>
+        /// <param name="details"></param>
+        public void LogDebug(string title, string text, string details)
+        {
+            lock (this._lock)
             {
-				return;
+                if (!this.DoLogDebug)
+                {
+                    return;
+                }
+
+                if (this.AutoPurge)
+                {
+                    if (this.Entries.Count >= this.PurgeLimit)
+                    {
+                        var elements = new ObservableCollection<ItsLogEntry>(this.Entries.Skip(Math.Max(0, this.Entries.Count - this.PurgeLimit)));
+                        this.Entries.Clear();
+                        this.Entries = elements;
+
+                        if (this.AutoSave)
+                        {
+                            this.SaveLog();
+                        }
+                    }
+                }
+
+                this.Entries.Add(new ItsLogEntry() { Text = text, Details = details, Type = ItsLogType.Debug, When = DateTime.Now, Title = title });
+
+                if (this.AutoSave)
+                {
+                    this.SaveLog();
+                }
+
+                this.ItemAdded?.Invoke(this, new ItsLogEventArgs() { ItemAdded = this.Entries.Last() });
             }
+        }
+        /// <summary>
+        /// Log other entry.
+        /// </summary>
+        /// <param name="text"></param>
+        public void LogOther(string title, string text)
+        {
+            this.LogOther(title, text, string.Empty);
+        }
+        /// <summary>
+        /// Log other entry.
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="text"></param>
+        /// <param name="details"></param>
+        public void LogOther(string title, string text, string details)
+        {
+            lock (this._lock)
+            {
+                if (!this.DoLogOther)
+                {
+                    return;
+                }
 
-			this.Entries.Add( new ItsLogEntry( ) { Text = text, Type = ItsLogType.Other, When = DateTime.Now, Title = title } );
+                if (this.AutoPurge)
+                {
+                    if (this.Entries.Count >= this.PurgeLimit)
+                    {
+                        var elements = new ObservableCollection<ItsLogEntry>(this.Entries.Skip(Math.Max(0, this.Entries.Count - this.PurgeLimit)));
+                        this.Entries.Clear();
+                        this.Entries = elements;
 
-			if ( this.AutoSave )
-			{
-				this.SaveLog( );
-			}
-		}
-		#endregion
-	}
+                        if (this.AutoSave)
+                        {
+                            this.SaveLog();
+                        }
+                    }
+                }
+
+                this.Entries.Add(new ItsLogEntry() { Text = text, Details = details, Type = ItsLogType.Other, When = DateTime.Now, Title = title });
+
+                if (this.AutoSave)
+                {
+                    this.SaveLog();
+                }
+
+                this.ItemAdded?.Invoke(this, new ItsLogEventArgs() { ItemAdded = this.Entries.Last() });
+            }
+        }
+
+        public override string ToString()
+        {
+            StringBuilder txt = new StringBuilder();
+            lock (this._lock)
+            {
+                txt.AppendLine($"## ITSLOG ##");
+                txt.AppendLine($"## Filename: {this.FileName}");
+                txt.AppendLine($"============================");
+                foreach (var i in this.Entries)
+                {
+                    txt.AppendLine($"Type    : {Enum.GetName(typeof(ItsLogType), i.Type)}");
+                    txt.AppendLine($"When    : {i.When.ToString("s")}");
+                    txt.AppendLine($"Title   : {i.Title.Replace(":", ",")}");
+                    txt.AppendLine($"Text    :");
+                    txt.AppendLine($"{i.Text.Replace(":", ",")}");
+                    txt.AppendLine($"Details :");
+                    txt.AppendLine($"{i.Details.Replace(":", ",")}");
+                    txt.AppendLine();
+                    txt.AppendLine();
+                }
+            }
+            return txt.ToString();
+        }
+        #endregion
+    }
 }
