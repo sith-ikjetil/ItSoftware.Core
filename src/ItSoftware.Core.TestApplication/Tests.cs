@@ -36,6 +36,7 @@ namespace ItSoftware.Core.TestApplication
 				this.TestItsHttpHost();
 				this.TestItsRandom();
 				this.TestItsWords();
+				this.TestItsNumbers();
 			}
 			catch (System.Exception y)
 			{
@@ -81,7 +82,16 @@ namespace ItSoftware.Core.TestApplication
 
             Console.WriteLine($"Count All: {System.IO.File.ReadLines("poem.txt").ItsWords(false).Count()}");
             Console.WriteLine($"Count Distinct: {System.IO.File.ReadLines("poem.txt").ItsWords(true).Count()}");
+        }
 
+        private void TestItsNumbers()
+        {
+            PrintTestHeader("ItsNumbers Started");
+            var lines = "ABC 0130 DEF 2010. \n2000 1920.20191 XYZ!";
+            foreach (var n in lines.Split('\n').AsEnumerable<string>().ItsNumbers(false))
+            {
+                Console.WriteLine($"'{n}'");
+            }
         }
 
         private void TestItsRegularExpressions()

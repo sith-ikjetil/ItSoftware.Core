@@ -78,6 +78,42 @@ namespace ItSoftware.Core.Extensions
         }
         #endregion
 
+        #region ItsNumbers
+        public static IEnumerable<string> ItsNumbers(this IEnumerable<string> lines, bool distinctOnly)
+        {
+            if (lines == null)
+            {
+                yield break;
+            }
+
+            var ht = new Hashtable();
+
+            foreach (var line in lines)
+            {
+                var matches = line.ItsRegExPatternMatches(@"\b(?<word>[0-9.,]+)\b");
+                foreach (Match match in matches)
+                {
+                    var word = match.Groups["word"]?.Value;
+                    if (word == null) continue;
+
+                    if (distinctOnly && ht.ContainsKey(word))
+                    {
+                        continue;
+                    }
+
+                    if (distinctOnly)
+                    {
+                        ht.Add(word, null);
+                    }
+
+                    yield return word;
+                }
+            }
+
+            yield break;
+        }
+        #endregion
+
         #region ItsRenderException
         /// <summary>
         /// Formats an exception to string
@@ -1043,23 +1079,37 @@ namespace ItSoftware.Core.Extensions
 			long nanosecPerTick = (1000L * 1000L * 1000L) / frequency;
 			return s.ElapsedTicks * nanosecPerTick / 1_000_000L;
 		}
-		#endregion
+        #endregion
 
-		#region ItsRandom
-		public static T ItsRandom<T>(this ICollection<T> list)
-		{
-			if (list == null)
-			{
+        #region ItsRandom
+        public static T ItsRandom<T>(this ICollection<T> list)
+        {
+            if (list == null || list.Count == 0)
+            {
 				return default(T);
-			}
+            }
 
-			if (list.Count == 1)
-			{
-				return list.ElementAt(0);
-			}
+            if (list.Count == 1)
+            {
+                return list.ElementAt(0);
+            }
 
-			return list.ElementAt(s_rnd.Next(0, list.Count));
-		}
-		#endregion
-	}// class
+            return list.ElementAt(s_rnd.Next(0, list.Count));
+        }
+        /*public static T ItsRandom<T>(this ImmutableArray<T> list)
+        {
+            if (list == null || list.Count() == 0)
+            {
+                return default(T)!;
+            }
+
+            if (list.Count() == 1)
+            {
+                return list.ElementAt<T>(0);
+            }
+
+            return list.ElementAt(s_rnd.Next(0, list.Count()));
+        }*/
+        #endregion
+    }// class
 }// namespace
