@@ -8,6 +8,7 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using ItSoftware.Core.Log;
+using System.Globalization;
 //using ItSoftware.Core.HttpHost;
 
 namespace ItSoftware.Core.TestApplication
@@ -37,7 +38,8 @@ namespace ItSoftware.Core.TestApplication
 				this.TestItsRandom();
 				this.TestItsWords();
 				this.TestItsNumbers();
-			}
+                this.TestItsAsNumbers();
+            }
 			catch (System.Exception y)
 			{
 				Console.WriteLine(y.ItsRenderException());
@@ -91,6 +93,16 @@ namespace ItSoftware.Core.TestApplication
             foreach (var n in lines.Split('\n').AsEnumerable<string>().ItsNumbers(false))
             {
                 Console.WriteLine($"'{n}'");
+            }
+        }
+
+        private void TestItsAsNumbers()
+        {
+            PrintTestHeader("ItsAsNumbers Started");
+            var lines = "ABC 0130, DEF 2010.\n2000 1920.20191 0130 XYZ!";
+            foreach (var n in lines.Split('\n').AsEnumerable<string>().ItsNumbers(false).ItsAsNumbers(false, new System.Globalization.CultureInfo("en-US")))
+            {
+                Console.WriteLine(n.ToString(new CultureInfo("en-US")));
             }
         }
 

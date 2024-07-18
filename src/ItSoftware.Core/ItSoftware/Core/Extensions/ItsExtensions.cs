@@ -45,7 +45,7 @@ namespace ItSoftware.Core.Extensions
         #region ItsWords
         public static IEnumerable<string> ItsWords(this IEnumerable<string> lines, bool distinctOnly)
         {
-            if (lines == null)
+            if (lines == null || lines.Count() == 0)
             {
                 yield break;
             }
@@ -81,7 +81,7 @@ namespace ItSoftware.Core.Extensions
         #region ItsNumbers
         public static IEnumerable<string> ItsNumbers(this IEnumerable<string> lines, bool distinctOnly)
         {
-            if (lines == null)
+            if (lines == null || lines.Count() == 0)
             {
                 yield break;
             }
@@ -107,6 +107,38 @@ namespace ItSoftware.Core.Extensions
                     }
 
                     yield return word;
+                }
+            }
+
+            yield break;
+        }
+        #endregion
+
+        #region ItsAsNumbers
+        public static IEnumerable<double> ItsAsNumbers(this IEnumerable<string> numbers, bool distinctOnly, CultureInfo ci)
+        {
+            if (numbers == null || numbers.Count() == 0)
+            {
+                yield break;
+            }
+
+            var ht = new Hashtable();
+
+            foreach (var n in numbers)
+            {
+                if (double.TryParse(n, NumberStyles.Any, ci, out double number))
+                {
+                    if (distinctOnly && ht.ContainsKey(n))
+                    {
+                        continue;
+                    }
+
+                    if (distinctOnly)
+                    {
+                        ht.Add(n, null);
+                    }
+
+                    yield return number;
                 }
             }
 
