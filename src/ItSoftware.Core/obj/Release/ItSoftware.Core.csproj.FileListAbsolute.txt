@@ -67,7 +67,6 @@ D:\GitHub\ItSoftware.Core\src\ItSoftware.Core\bin\Release\ItSoftware.Core.dll
 D:\GitHub\ItSoftware.Core\src\ItSoftware.Core\bin\Release\ItSoftware.Core.pdb
 D:\GitHub\ItSoftware.Core\src\ItSoftware.Core\bin\Release\ICSharpCode.SharpZipLib.dll
 D:\GitHub\ItSoftware.Core\src\ItSoftware.Core\obj\Release\ItSoftware.Core.csproj.CoreCompileInputs.cache
-D:\GitHub\ItSoftware.Core\src\ItSoftware.Core\obj\Release\ItSoftware.Core.csproj.CopyComplete
 D:\GitHub\ItSoftware.Core\src\ItSoftware.Core\obj\Release\ItSoftware.Core.dll
 D:\GitHub\ItSoftware.Core\src\ItSoftware.Core\obj\Release\ItSoftware.Core.pdb
 D:\GitHub\ItSoftware.Core\src\ItSoftware.Core\obj\Release\ItSoftware.Core.csproj.AssemblyReference.cache
@@ -79,3 +78,4 @@ D:\GitHub\ItSoftware.Core\src\ItSoftware.Core\bin\Release\Microsoft.Owin.xml
 D:\GitHub\ItSoftware.Core\src\ItSoftware.Core\bin\Release\Microsoft.Owin.Diagnostics.xml
 D:\GitHub\ItSoftware.Core\src\ItSoftware.Core\bin\Release\Microsoft.Owin.Host.HttpListener.xml
 D:\GitHub\ItSoftware.Core\src\ItSoftware.Core\bin\Release\Microsoft.Owin.Hosting.xml
+D:\GitHub\ItSoftware.Core\src\ItSoftware.Core\obj\Release\ItSoftwa.3300FFAB.Up2Date

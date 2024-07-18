@@ -35,6 +35,7 @@ namespace ItSoftware.Core.TestApplication
 				this.TestItsRenderException();
 				this.TestItsHttpHost();
 				this.TestItsRandom();
+				this.TestItsWords();
 			}
 			catch (System.Exception y)
 			{
@@ -70,7 +71,20 @@ namespace ItSoftware.Core.TestApplication
 			Console.WriteLine();
 		}
 
-		private void TestItsRegularExpressions()
+        private void TestItsWords()
+        {
+            PrintTestHeader("ItsWords Started");
+            foreach (var word in System.IO.File.ReadLines("poem.txt").ItsWords(false))
+            {
+                Console.WriteLine($"'{word}'");
+            }
+
+            Console.WriteLine($"Count All: {System.IO.File.ReadLines("poem.txt").ItsWords(false).Count()}");
+            Console.WriteLine($"Count Distinct: {System.IO.File.ReadLines("poem.txt").ItsWords(true).Count()}");
+
+        }
+
+        private void TestItsRegularExpressions()
 		{
 			PrintTestHeader("ItsRegularExpressions");
 

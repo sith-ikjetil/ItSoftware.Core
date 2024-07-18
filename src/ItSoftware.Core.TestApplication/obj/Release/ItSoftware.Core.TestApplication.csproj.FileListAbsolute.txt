@@ -95,6 +95,7 @@ D:\GitHub\ItSoftware.Core\src\ItSoftware.Core.TestApplication\bin\Release\Micros
 D:\GitHub\ItSoftware.Core\src\ItSoftware.Core.TestApplication\bin\Release\Microsoft.Owin.Hosting.xml
 D:\GitHub\ItSoftware.Core\src\ItSoftware.Core.TestApplication\obj\Release\ItSoftware.Core.TestApplication.csproj.AssemblyReference.cache
 D:\GitHub\ItSoftware.Core\src\ItSoftware.Core.TestApplication\obj\Release\ItSoftware.Core.TestApplication.csproj.CoreCompileInputs.cache
-D:\GitHub\ItSoftware.Core\src\ItSoftware.Core.TestApplication\obj\Release\ItSoftware.Core.TestApplication.csproj.CopyComplete
 D:\GitHub\ItSoftware.Core\src\ItSoftware.Core.TestApplication\obj\Release\ItSoftware.Core.TestApplication.exe
 D:\GitHub\ItSoftware.Core\src\ItSoftware.Core.TestApplication\obj\Release\ItSoftware.Core.TestApplication.pdb
+D:\GitHub\ItSoftware.Core\src\ItSoftware.Core.TestApplication\bin\Release\poem.txt
+D:\GitHub\ItSoftware.Core\src\ItSoftware.Core.TestApplication\obj\Release\ItSoftwa.148A9927.Up2Date
