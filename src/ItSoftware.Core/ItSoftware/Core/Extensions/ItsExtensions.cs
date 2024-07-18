@@ -42,8 +42,8 @@ namespace ItSoftware.Core.Extensions
 		private static Random s_rnd = new Random();
         #endregion
 
-        #region ItsWords
-        public static IEnumerable<string> ItsWords(this IEnumerable<string> lines, bool distinctOnly)
+        #region ItsToWords
+        public static IEnumerable<string> ItsToWords(this IEnumerable<string> lines, bool distinctOnly)
         {
             if (lines == null || lines.Count() == 0)
             {
@@ -78,8 +78,8 @@ namespace ItSoftware.Core.Extensions
         }
         #endregion
 
-        #region ItsNumbers
-        public static IEnumerable<string> ItsNumbers(this IEnumerable<string> lines, bool distinctOnly)
+        #region ItsToNumbers
+        public static IEnumerable<string> ItsToNumbers(this IEnumerable<string> lines, bool distinctOnly)
         {
             if (lines == null || lines.Count() == 0)
             {
@@ -114,8 +114,8 @@ namespace ItSoftware.Core.Extensions
         }
         #endregion
 
-        #region ItsAsNumbers
-        public static IEnumerable<double> ItsAsNumbers(this IEnumerable<string> numbers, bool distinctOnly, CultureInfo ci)
+        #region ItsTo(Double/Float/Int/Long/Decimal/Short/Byte)
+        public static IEnumerable<double> ItsToDouble(this IEnumerable<string> numbers, bool distinctOnly, CultureInfo ci)
         {
             if (numbers == null || numbers.Count() == 0)
             {
@@ -127,6 +127,180 @@ namespace ItSoftware.Core.Extensions
             foreach (var n in numbers)
             {
                 if (double.TryParse(n, NumberStyles.Any, ci, out double number))
+                {
+                    if (distinctOnly && ht.ContainsKey(n))
+                    {
+                        continue;
+                    }
+
+                    if (distinctOnly)
+                    {
+                        ht.Add(n, null);
+                    }
+
+                    yield return number;
+                }
+            }
+
+            yield break;
+        }
+        public static IEnumerable<float> ItsToFloat(this IEnumerable<string> numbers, bool distinctOnly, CultureInfo ci)
+        {
+            if (numbers == null || numbers.Count() == 0)
+            {
+                yield break;
+            }
+
+            var ht = new Hashtable();
+
+            foreach (var n in numbers)
+            {
+                if (float.TryParse(n, NumberStyles.Any, ci, out float number))
+                {
+                    if (distinctOnly && ht.ContainsKey(n))
+                    {
+                        continue;
+                    }
+
+                    if (distinctOnly)
+                    {
+                        ht.Add(n, null);
+                    }
+
+                    yield return number;
+                }
+            }
+
+            yield break;
+        }
+        public static IEnumerable<int> ItsToInt(this IEnumerable<string> numbers, bool distinctOnly)
+        {
+            if (numbers == null || numbers.Count() == 0)
+            {
+                yield break;
+            }
+
+            var ht = new Hashtable();
+
+            foreach (var n in numbers)
+            {
+                if (int.TryParse(n, out int number))
+                {
+                    if (distinctOnly && ht.ContainsKey(n))
+                    {
+                        continue;
+                    }
+
+                    if (distinctOnly)
+                    {
+                        ht.Add(n, null);
+                    }
+
+                    yield return number;
+                }
+            }
+
+            yield break;
+        }
+        public static IEnumerable<long> ItsToLong(this IEnumerable<string> numbers, bool distinctOnly)
+        {
+            if (numbers == null || numbers.Count() == 0)
+            {
+                yield break;
+            }
+
+            var ht = new Hashtable();
+
+            foreach (var n in numbers)
+            {
+                if (long.TryParse(n, out long number))
+                {
+                    if (distinctOnly && ht.ContainsKey(n))
+                    {
+                        continue;
+                    }
+
+                    if (distinctOnly)
+                    {
+                        ht.Add(n, null);
+                    }
+
+                    yield return number;
+                }
+            }
+
+            yield break;
+        }
+        public static IEnumerable<short> ItsToShort(this IEnumerable<string> numbers, bool distinctOnly)
+        {
+            if (numbers == null || numbers.Count() == 0)
+            {
+                yield break;
+            }
+
+            var ht = new Hashtable();
+
+            foreach (var n in numbers)
+            {
+                if (short.TryParse(n, out short number))
+                {
+                    if (distinctOnly && ht.ContainsKey(n))
+                    {
+                        continue;
+                    }
+
+                    if (distinctOnly)
+                    {
+                        ht.Add(n, null);
+                    }
+
+                    yield return number;
+                }
+            }
+
+            yield break;
+        }
+        public static IEnumerable<byte> ItsToByte(this IEnumerable<string> numbers, bool distinctOnly)
+        {
+            if (numbers == null || numbers.Count() == 0)
+            {
+                yield break;
+            }
+
+            var ht = new Hashtable();
+
+            foreach (var n in numbers)
+            {
+                if (byte.TryParse(n, out byte number))
+                {
+                    if (distinctOnly && ht.ContainsKey(n))
+                    {
+                        continue;
+                    }
+
+                    if (distinctOnly)
+                    {
+                        ht.Add(n, null);
+                    }
+
+                    yield return number;
+                }
+            }
+
+            yield break;
+        }
+        public static IEnumerable<decimal> ItsToDecimal(this IEnumerable<string> numbers, bool distinctOnly, CultureInfo ci)
+        {
+            if (numbers == null || numbers.Count() == 0)
+            {
+                yield break;
+            }
+
+            var ht = new Hashtable();
+
+            foreach (var n in numbers)
+            {
+                if (decimal.TryParse(n, NumberStyles.Any, ci, out decimal number))
                 {
                     if (distinctOnly && ht.ContainsKey(n))
                     {
