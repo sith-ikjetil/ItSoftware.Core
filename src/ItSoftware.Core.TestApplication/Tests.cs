@@ -39,6 +39,7 @@ namespace ItSoftware.Core.TestApplication
 				this.TestItsToWords();
 				this.TestItsToNumbers();
                 this.TestItsToDouble();
+				this.TestItsToHexNumbers();
             }
 			catch (System.Exception y)
 			{
@@ -82,8 +83,8 @@ namespace ItSoftware.Core.TestApplication
                 Console.WriteLine($"'{word}'");
             }
 
-            Console.WriteLine($"Count All: {System.IO.File.ReadLines("poem.txt").ItsWords(false).Count()}");
-            Console.WriteLine($"Count Distinct: {System.IO.File.ReadLines("poem.txt").ItsWords(true).Count()}");
+            Console.WriteLine($"Count All: {System.IO.File.ReadLines("poem.txt").ItsToWords(false).Count()}");
+            Console.WriteLine($"Count Distinct: {System.IO.File.ReadLines("poem.txt").ItsToWords(true).Count()}");
         }
 
         private void TestItsToNumbers()
@@ -103,6 +104,23 @@ namespace ItSoftware.Core.TestApplication
             foreach (var n in lines.Split('\n').AsEnumerable<string>().ItsToNumbers(false).ItsToDouble(false, new System.Globalization.CultureInfo("en-US")))
             {
                 Console.WriteLine(n.ToString(new CultureInfo("en-US")));
+            }
+        }
+
+        private void TestItsToHexNumbers()
+        {
+            PrintTestHeader("ItsToHexNumbers Started");
+            var lines = "ABC 0130, DEF 2010.\n\n2000 1920.20191 0130 XYZ! af4b af5x";
+            foreach (var n in lines.Split('\n').AsEnumerable<string>().ItsToHexNumbers(false))
+            {
+                try
+                {
+                    Console.WriteLine($"'{n}'\t{Convert.ToInt32(n, 16)}");
+                }
+                catch (System.Exception e)
+                {
+                    Console.WriteLine($"'{n}'\tERROR: {e.GetType().FullName}, {e.Message}");
+                }
             }
         }
 
