@@ -40,6 +40,7 @@ namespace ItSoftware.Core.TestApplication
 				this.TestItsToNumbers();
                 this.TestItsToDouble();
 				this.TestItsToHexNumbers();
+				this.TestItsToSentences();
             }
 			catch (System.Exception y)
 			{
@@ -122,6 +123,17 @@ namespace ItSoftware.Core.TestApplication
                     Console.WriteLine($"'{n}'\tERROR: {e.GetType().FullName}, {e.Message}");
                 }
             }
+        }
+
+        private void TestItsToSentences()
+        {
+            PrintTestHeader("ItsToSentences Started");
+            foreach (var sent in System.IO.File.ReadLines("poem.txt").ItsToSentences())
+            {
+                Console.WriteLine($"'{sent}'");
+            }
+
+            Console.WriteLine($"Count All: {System.IO.File.ReadLines("poem.txt").ItsToSentences().Count()}");
         }
 
         private void TestItsRegularExpressions()
